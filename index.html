@@ -1,0 +1,891 @@
+<!DOCTYPE html>
+<html lang="en" dir="ltr">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>OPTISEC — Professional Security Tools</title>
+  <style>
+    :root {
+      --green: #00ff88;
+      --green-dim: #00cc6a;
+      --green-dark: #003d1f;
+      --bg: #050a0e;
+      --bg2: #0a1520;
+      --bg3: #0f1f2d;
+      --card: #0d1a26;
+      --border: #0e2d1e;
+      --text: #cce8d5;
+      --text-dim: #6b9e7e;
+      --white: #ffffff;
+    }
+
+    * { margin: 0; padding: 0; box-sizing: border-box; }
+
+    body {
+      background: var(--bg);
+      color: var(--text);
+      font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+      min-height: 100vh;
+      overflow-x: hidden;
+    }
+
+    body[dir="rtl"] { font-family: 'Segoe UI', 'Arial', Tahoma, sans-serif; }
+
+    /* ── GRID OVERLAY ── */
+    body::before {
+      content: '';
+      position: fixed;
+      inset: 0;
+      background-image:
+        linear-gradient(rgba(0,255,136,0.03) 1px, transparent 1px),
+        linear-gradient(90deg, rgba(0,255,136,0.03) 1px, transparent 1px);
+      background-size: 40px 40px;
+      pointer-events: none;
+      z-index: 0;
+    }
+
+    /* ── SCANLINE ── */
+    body::after {
+      content: '';
+      position: fixed;
+      inset: 0;
+      background: repeating-linear-gradient(
+        0deg,
+        transparent,
+        transparent 2px,
+        rgba(0,0,0,0.07) 2px,
+        rgba(0,0,0,0.07) 4px
+      );
+      pointer-events: none;
+      z-index: 0;
+    }
+
+    /* ── NAVBAR ── */
+    nav {
+      position: sticky;
+      top: 0;
+      z-index: 100;
+      background: rgba(5,10,14,0.92);
+      backdrop-filter: blur(12px);
+      border-bottom: 1px solid var(--border);
+      padding: 0 40px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      height: 64px;
+    }
+
+    .logo {
+      font-size: 1.5rem;
+      font-weight: 700;
+      letter-spacing: 3px;
+      color: var(--green);
+      text-shadow: 0 0 20px rgba(0,255,136,0.5);
+      text-decoration: none;
+    }
+
+    .logo span { color: var(--white); }
+
+    .nav-right { display: flex; align-items: center; gap: 20px; }
+
+    .lang-toggle {
+      background: var(--bg3);
+      border: 1px solid var(--border);
+      border-radius: 6px;
+      padding: 6px 14px;
+      color: var(--green);
+      font-size: 0.85rem;
+      font-weight: 600;
+      letter-spacing: 1px;
+      cursor: pointer;
+      transition: all 0.25s;
+    }
+    .lang-toggle:hover {
+      background: var(--green-dark);
+      border-color: var(--green);
+      box-shadow: 0 0 12px rgba(0,255,136,0.2);
+    }
+
+    /* ── HERO ── */
+    .hero {
+      position: relative;
+      z-index: 1;
+      min-height: 88vh;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      text-align: center;
+      padding: 60px 20px;
+    }
+
+    .hero-badge {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      background: var(--green-dark);
+      border: 1px solid var(--green);
+      border-radius: 50px;
+      padding: 6px 18px;
+      font-size: 0.78rem;
+      letter-spacing: 2px;
+      color: var(--green);
+      margin-bottom: 28px;
+      animation: fadeDown 0.7s ease both;
+    }
+
+    .badge-dot {
+      width: 7px; height: 7px;
+      border-radius: 50%;
+      background: var(--green);
+      animation: pulse 1.8s infinite;
+    }
+
+    .hero h1 {
+      font-size: clamp(2.4rem, 6vw, 4.5rem);
+      font-weight: 800;
+      line-height: 1.1;
+      letter-spacing: -1px;
+      color: var(--white);
+      margin-bottom: 20px;
+      animation: fadeDown 0.8s 0.1s ease both;
+    }
+
+    .hero h1 .accent { color: var(--green); text-shadow: 0 0 30px rgba(0,255,136,0.4); }
+
+    .hero p {
+      max-width: 600px;
+      font-size: 1.1rem;
+      color: var(--text-dim);
+      line-height: 1.7;
+      margin-bottom: 40px;
+      animation: fadeDown 0.8s 0.2s ease both;
+    }
+
+    .hero-cta {
+      display: inline-block;
+      background: linear-gradient(135deg, var(--green), var(--green-dim));
+      color: #000;
+      font-weight: 700;
+      font-size: 1rem;
+      letter-spacing: 1px;
+      padding: 14px 36px;
+      border-radius: 8px;
+      text-decoration: none;
+      transition: all 0.3s;
+      box-shadow: 0 0 30px rgba(0,255,136,0.3);
+      animation: fadeDown 0.8s 0.3s ease both;
+    }
+    .hero-cta:hover {
+      transform: translateY(-2px);
+      box-shadow: 0 0 50px rgba(0,255,136,0.5);
+    }
+
+    /* ── STATS BAR ── */
+    .stats {
+      position: relative;
+      z-index: 1;
+      display: flex;
+      justify-content: center;
+      gap: 60px;
+      flex-wrap: wrap;
+      padding: 30px 20px;
+      border-top: 1px solid var(--border);
+      border-bottom: 1px solid var(--border);
+      background: var(--bg2);
+      margin-bottom: 80px;
+    }
+
+    .stat { text-align: center; }
+    .stat-num { font-size: 1.8rem; font-weight: 700; color: var(--green); }
+    .stat-label { font-size: 0.78rem; color: var(--text-dim); letter-spacing: 1px; margin-top: 2px; }
+
+    /* ── SECTION ── */
+    section {
+      position: relative;
+      z-index: 1;
+      max-width: 1100px;
+      margin: 0 auto;
+      padding: 0 24px 100px;
+    }
+
+    .section-title {
+      text-align: center;
+      font-size: 2rem;
+      font-weight: 700;
+      color: var(--white);
+      margin-bottom: 10px;
+    }
+
+    .section-title .accent { color: var(--green); }
+
+    .section-sub {
+      text-align: center;
+      color: var(--text-dim);
+      margin-bottom: 50px;
+      font-size: 0.95rem;
+    }
+
+    /* ── PRODUCT CARDS ── */
+    .products {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+      gap: 28px;
+    }
+
+    .product-card {
+      background: var(--card);
+      border: 1px solid var(--border);
+      border-radius: 16px;
+      padding: 36px 32px;
+      position: relative;
+      overflow: hidden;
+      transition: transform 0.3s, box-shadow 0.3s, border-color 0.3s;
+    }
+
+    .product-card:hover {
+      transform: translateY(-6px);
+      box-shadow: 0 20px 60px rgba(0,255,136,0.1);
+      border-color: var(--green);
+    }
+
+    .product-card::before {
+      content: '';
+      position: absolute;
+      top: 0; left: 0; right: 0;
+      height: 3px;
+      background: linear-gradient(90deg, transparent, var(--green), transparent);
+    }
+
+    .product-card.featured {
+      border-color: rgba(0,255,136,0.3);
+      box-shadow: 0 0 40px rgba(0,255,136,0.07);
+    }
+
+    .product-badge {
+      position: absolute;
+      top: 16px;
+      right: 16px;
+      background: var(--green);
+      color: #000;
+      font-size: 0.7rem;
+      font-weight: 700;
+      padding: 4px 10px;
+      border-radius: 50px;
+      letter-spacing: 1px;
+    }
+
+    body[dir="rtl"] .product-badge { right: auto; left: 16px; }
+
+    .product-icon {
+      width: 56px;
+      height: 56px;
+      border-radius: 12px;
+      background: var(--green-dark);
+      border: 1px solid var(--border);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 1.6rem;
+      margin-bottom: 20px;
+    }
+
+    .product-name {
+      font-size: 1.3rem;
+      font-weight: 700;
+      color: var(--white);
+      margin-bottom: 8px;
+    }
+
+    .product-desc {
+      font-size: 0.9rem;
+      color: var(--text-dim);
+      line-height: 1.6;
+      margin-bottom: 22px;
+    }
+
+    .features { list-style: none; margin-bottom: 28px; }
+    .features li {
+      font-size: 0.88rem;
+      color: var(--text);
+      padding: 5px 0;
+      display: flex;
+      align-items: center;
+      gap: 8px;
+    }
+    .features li::before { content: '▹'; color: var(--green); flex-shrink: 0; }
+    body[dir="rtl"] .features li { flex-direction: row-reverse; }
+
+    .product-price {
+      font-size: 2rem;
+      font-weight: 800;
+      color: var(--green);
+      margin-bottom: 6px;
+    }
+
+    .product-price span { font-size: 1rem; font-weight: 400; color: var(--text-dim); }
+
+    .btn-buy {
+      display: block;
+      width: 100%;
+      padding: 13px;
+      background: linear-gradient(135deg, var(--green), var(--green-dim));
+      color: #000;
+      font-weight: 700;
+      font-size: 0.95rem;
+      border: none;
+      border-radius: 8px;
+      cursor: pointer;
+      text-align: center;
+      letter-spacing: 0.5px;
+      transition: all 0.25s;
+      text-decoration: none;
+      margin-top: 4px;
+    }
+    .btn-buy:hover {
+      box-shadow: 0 0 30px rgba(0,255,136,0.4);
+      transform: translateY(-1px);
+    }
+
+    /* ── PAYMENT SECTION ── */
+    .payment-section {
+      background: var(--bg2);
+      border: 1px solid var(--border);
+      border-radius: 20px;
+      padding: 50px 40px;
+      margin-bottom: 100px;
+      position: relative;
+      z-index: 1;
+      max-width: 1100px;
+      margin-left: auto;
+      margin-right: auto;
+    }
+
+    .payment-single {
+      margin-top: 40px;
+      max-width: 520px;
+      margin-left: auto;
+      margin-right: auto;
+    }
+
+    .payment-card {
+      background: var(--card);
+      border: 1px solid var(--border);
+      border-radius: 12px;
+      padding: 28px 24px;
+      transition: border-color 0.25s;
+    }
+    .payment-card:hover { border-color: rgba(0,255,136,0.3); }
+
+    .payment-icon {
+      font-size: 2rem;
+      margin-bottom: 14px;
+    }
+
+    .payment-title {
+      font-size: 1.05rem;
+      font-weight: 700;
+      color: var(--white);
+      margin-bottom: 6px;
+    }
+
+    .payment-sub {
+      font-size: 0.8rem;
+      color: var(--text-dim);
+      margin-bottom: 16px;
+    }
+
+    .payment-address {
+      background: var(--bg3);
+      border: 1px solid var(--border);
+      border-radius: 8px;
+      padding: 12px 14px;
+      font-family: 'Courier New', monospace;
+      font-size: 0.85rem;
+      color: var(--green);
+      word-break: break-all;
+      display: flex;
+      justify-content: space-between;
+      align-items: flex-start;
+      gap: 8px;
+      margin-bottom: 10px;
+    }
+
+    .payment-holder {
+      font-size: 0.82rem;
+      color: var(--text-dim);
+      padding: 4px 0 0 2px;
+      letter-spacing: 0.5px;
+    }
+
+    .copy-btn {
+      background: none;
+      border: 1px solid var(--green-dark);
+      color: var(--green);
+      font-size: 0.7rem;
+      padding: 3px 8px;
+      border-radius: 4px;
+      cursor: pointer;
+      flex-shrink: 0;
+      transition: all 0.2s;
+      white-space: nowrap;
+    }
+    .copy-btn:hover { background: var(--green-dark); }
+    .copy-btn.copied { background: var(--green-dark); border-color: var(--green); }
+
+    .contact-note {
+      margin-top: 20px;
+      padding: 14px 18px;
+      background: var(--green-dark);
+      border: 1px solid rgba(0,255,136,0.25);
+      border-radius: 8px;
+      font-size: 0.88rem;
+      color: var(--green);
+      text-align: center;
+    }
+
+    /* ── STEPS ── */
+    .steps {
+      display: flex;
+      flex-direction: column;
+      gap: 16px;
+      margin-top: 40px;
+    }
+
+    .step {
+      display: flex;
+      align-items: flex-start;
+      gap: 16px;
+      padding: 20px;
+      background: var(--card);
+      border: 1px solid var(--border);
+      border-radius: 12px;
+    }
+    body[dir="rtl"] .step { flex-direction: row-reverse; }
+
+    .step-num {
+      width: 36px;
+      height: 36px;
+      border-radius: 8px;
+      background: var(--green-dark);
+      border: 1px solid var(--green);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 0.85rem;
+      font-weight: 700;
+      color: var(--green);
+      flex-shrink: 0;
+    }
+
+    .step-content h4 { font-size: 0.95rem; color: var(--white); margin-bottom: 4px; }
+    .step-content p { font-size: 0.85rem; color: var(--text-dim); line-height: 1.5; }
+
+    /* ── FOOTER ── */
+    footer {
+      position: relative;
+      z-index: 1;
+      border-top: 1px solid var(--border);
+      padding: 40px 24px;
+      text-align: center;
+      color: var(--text-dim);
+      font-size: 0.82rem;
+    }
+
+    footer .footer-logo {
+      font-size: 1.2rem;
+      font-weight: 700;
+      letter-spacing: 3px;
+      color: var(--green);
+      margin-bottom: 12px;
+    }
+
+    /* ── MODAL ── */
+    .modal-overlay {
+      display: none;
+      position: fixed;
+      inset: 0;
+      background: rgba(0,0,0,0.85);
+      z-index: 200;
+      align-items: center;
+      justify-content: center;
+      padding: 20px;
+    }
+    .modal-overlay.active { display: flex; }
+
+    .modal {
+      background: var(--bg2);
+      border: 1px solid var(--green);
+      border-radius: 16px;
+      padding: 40px 36px;
+      max-width: 480px;
+      width: 100%;
+      position: relative;
+      box-shadow: 0 0 60px rgba(0,255,136,0.15);
+      animation: fadeUp 0.3s ease;
+    }
+
+    .modal-close {
+      position: absolute;
+      top: 16px; right: 16px;
+      background: none;
+      border: none;
+      color: var(--text-dim);
+      font-size: 1.4rem;
+      cursor: pointer;
+      transition: color 0.2s;
+    }
+    body[dir="rtl"] .modal-close { right: auto; left: 16px; }
+    .modal-close:hover { color: var(--green); }
+
+    .modal h3 { font-size: 1.4rem; color: var(--white); margin-bottom: 6px; }
+    .modal .modal-price { font-size: 2rem; font-weight: 800; color: var(--green); margin-bottom: 24px; }
+
+    .modal-address-box {
+      background: var(--bg3);
+      border: 1px solid var(--border);
+      border-radius: 8px;
+      padding: 14px;
+      font-family: 'Courier New', monospace;
+      font-size: 0.85rem;
+      color: var(--green);
+      word-break: break-all;
+      margin-bottom: 6px;
+    }
+
+    .modal-holder {
+      font-size: 0.8rem;
+      color: var(--text-dim);
+      padding: 2px 0 14px 2px;
+      letter-spacing: 0.5px;
+    }
+
+    .modal-note {
+      font-size: 0.82rem;
+      color: var(--text-dim);
+      line-height: 1.6;
+      margin-bottom: 14px;
+    }
+
+    .modal-contact-note {
+      margin-top: 14px;
+      padding: 12px 16px;
+      background: var(--green-dark);
+      border: 1px solid rgba(0,255,136,0.25);
+      border-radius: 8px;
+      font-size: 0.84rem;
+      color: var(--green);
+      text-align: center;
+    }
+
+    .modal-email-link {
+      color: var(--green);
+      text-decoration: none;
+      font-weight: 600;
+    }
+    .modal-email-link:hover { text-decoration: underline; }
+
+    /* ── ANIMATIONS ── */
+    @keyframes fadeDown {
+      from { opacity: 0; transform: translateY(-16px); }
+      to   { opacity: 1; transform: translateY(0); }
+    }
+    @keyframes fadeUp {
+      from { opacity: 0; transform: translateY(16px); }
+      to   { opacity: 1; transform: translateY(0); }
+    }
+    @keyframes pulse {
+      0%, 100% { opacity: 1; box-shadow: 0 0 0 0 rgba(0,255,136,0.4); }
+      50% { opacity: 0.7; box-shadow: 0 0 0 6px rgba(0,255,136,0); }
+    }
+
+    /* ── RTL TWEAKS ── */
+    body[dir="rtl"] .features li::before { content: '◃'; }
+    body[dir="rtl"] .payment-address { direction: ltr; }
+    body[dir="rtl"] .modal-address-box { direction: ltr; }
+
+    /* ── RESPONSIVE ── */
+    @media (max-width: 640px) {
+      nav { padding: 0 20px; }
+      .stats { gap: 30px; }
+      .payment-section { padding: 32px 20px; }
+      .modal { padding: 30px 22px; }
+    }
+  </style>
+</head>
+<body>
+
+<!-- ── NAV ── -->
+<nav>
+  <a class="logo" href="#">OPTI<span>SEC</span></a>
+  <div class="nav-right">
+    <button class="lang-toggle" onclick="toggleLang()" id="langBtn">العربية</button>
+  </div>
+</nav>
+
+<!-- ── HERO ── -->
+<div class="hero">
+  <div class="hero-badge">
+    <span class="badge-dot"></span>
+    <span data-en="ENTERPRISE SECURITY SOLUTIONS" data-ar="حلول أمنية للمؤسسات">ENTERPRISE SECURITY SOLUTIONS</span>
+  </div>
+  <h1>
+    <span data-en="Next-Gen" data-ar="الجيل القادم">Next-Gen</span><br>
+    <span class="accent" data-en="Cyber Defense" data-ar="الدفاع السيبراني">Cyber Defense</span><br>
+    <span data-en="Tools" data-ar="الأدوات">Tools</span>
+  </h1>
+  <p data-en="Professional-grade security tools for network monitoring, threat detection, and SOC operations. Built for security professionals who demand reliability."
+     data-ar="أدوات أمنية احترافية لمراقبة الشبكات وكشف التهديدات وعمليات مركز العمليات الأمنية. مصممة للمحترفين الذين يتطلعون إلى الموثوقية.">
+    Professional-grade security tools for network monitoring, threat detection, and SOC operations. Built for security professionals who demand reliability.
+  </p>
+  <a href="#products" class="hero-cta" data-en="View Products" data-ar="عرض المنتجات">View Products</a>
+</div>
+
+<!-- ── STATS ── -->
+<div class="stats">
+  <div class="stat">
+    <div class="stat-num">500+</div>
+    <div class="stat-label" data-en="ACTIVE CLIENTS" data-ar="العملاء النشطون">ACTIVE CLIENTS</div>
+  </div>
+  <div class="stat">
+    <div class="stat-num">99.9%</div>
+    <div class="stat-label" data-en="UPTIME RATE" data-ar="معدل التشغيل">UPTIME RATE</div>
+  </div>
+  <div class="stat">
+    <div class="stat-num">24/7</div>
+    <div class="stat-label" data-en="SUPPORT" data-ar="الدعم الفني">SUPPORT</div>
+  </div>
+  <div class="stat">
+    <div class="stat-num">256-bit</div>
+    <div class="stat-label" data-en="ENCRYPTION" data-ar="التشفير">ENCRYPTION</div>
+  </div>
+</div>
+
+<!-- ── PRODUCTS ── -->
+<section id="products">
+  <h2 class="section-title">
+    <span data-en="Our " data-ar="منتجاتنا ">Our </span>
+    <span class="accent" data-en="Products" data-ar="الأمنية">Products</span>
+  </h2>
+  <p class="section-sub" data-en="Choose the tool that fits your security needs" data-ar="اختر الأداة التي تناسب احتياجاتك الأمنية">Choose the tool that fits your security needs</p>
+
+  <div class="products">
+
+    <!-- Product 1 -->
+    <div class="product-card featured">
+      <span class="product-badge" data-en="POPULAR" data-ar="الأكثر شيوعاً">POPULAR</span>
+      <div class="product-icon">📡</div>
+      <div class="product-name" data-en="OPTISEC WiFi Monitor" data-ar="مراقب WiFi أوبتيسيك">OPTISEC WiFi Monitor</div>
+      <p class="product-desc" data-en="Advanced wireless network monitoring and analysis platform. Detect rogue APs, unauthorized devices, and real-time traffic anomalies."
+         data-ar="منصة متقدمة لمراقبة وتحليل الشبكات اللاسلكية. كشف نقاط الوصول المشبوهة والأجهزة غير المصرح بها وشذوذات حركة المرور في الوقت الفعلي.">
+        Advanced wireless network monitoring and analysis platform. Detect rogue APs, unauthorized devices, and real-time traffic anomalies.
+      </p>
+      <ul class="features">
+        <li data-en="Real-time device discovery & fingerprinting" data-ar="اكتشاف الأجهزة وبصمتها في الوقت الفعلي">Real-time device discovery &amp; fingerprinting</li>
+        <li data-en="Rogue AP and evil-twin detection" data-ar="كشف نقاط الوصول المزيفة">Rogue AP and evil-twin detection</li>
+        <li data-en="Packet capture & deep inspection" data-ar="التقاط الحزم والتفتيش العميق">Packet capture &amp; deep inspection</li>
+        <li data-en="Signal strength mapping (heatmap)" data-ar="خرائط حرارية لقوة الإشارة">Signal strength mapping (heatmap)</li>
+        <li data-en="Automated threat alerts & reports" data-ar="تنبيهات وتقارير تلقائية للتهديدات">Automated threat alerts &amp; reports</li>
+        <li data-en="Lifetime license · single device" data-ar="ترخيص مدى الحياة · جهاز واحد">Lifetime license · single device</li>
+      </ul>
+      <div class="product-price">$199 <span data-en="/ one-time" data-ar="/ دفعة واحدة">/ one-time</span></div>
+      <button class="btn-buy" onclick="openModal('wifi')" data-en="Buy Now" data-ar="اشتر الآن">Buy Now</button>
+    </div>
+
+    <!-- Product 2 -->
+    <div class="product-card">
+      <div class="product-icon">🛡️</div>
+      <div class="product-name" data-en="OPTISEC SOC Platform" data-ar="منصة SOC أوبتيسيك">OPTISEC SOC Platform</div>
+      <p class="product-desc" data-en="Comprehensive Security Operations Center platform for log aggregation, incident management, and threat intelligence correlation."
+         data-ar="منصة شاملة لمركز العمليات الأمنية تشمل تجميع السجلات وإدارة الحوادث وربط معلومات التهديدات.">
+        Comprehensive Security Operations Center platform for log aggregation, incident management, and threat intelligence correlation.
+      </p>
+      <ul class="features">
+        <li data-en="Centralized log aggregation (SIEM-lite)" data-ar="تجميع السجلات المركزي">Centralized log aggregation (SIEM-lite)</li>
+        <li data-en="Incident ticketing & escalation workflow" data-ar="تذاكر الحوادث وسير العمل">Incident ticketing &amp; escalation workflow</li>
+        <li data-en="Threat intelligence feed integration" data-ar="تكامل موجز معلومات التهديدات">Threat intelligence feed integration</li>
+        <li data-en="Custom alerting rules & dashboards" data-ar="قواعد تنبيه ولوحات تحكم مخصصة">Custom alerting rules &amp; dashboards</li>
+        <li data-en="Multi-user SOC collaboration" data-ar="تعاون متعدد المستخدمين في SOC">Multi-user SOC collaboration</li>
+        <li data-en="1-year license · up to 5 analysts" data-ar="ترخيص سنة · حتى 5 محللين">1-year license · up to 5 analysts</li>
+      </ul>
+      <div class="product-price">$99 <span data-en="/ year" data-ar="/ سنة">/ year</span></div>
+      <button class="btn-buy" onclick="openModal('soc')" data-en="Buy Now" data-ar="اشتر الآن">Buy Now</button>
+    </div>
+
+  </div>
+</section>
+
+<!-- ── PAYMENT SECTION ── -->
+<div class="payment-section" id="payment">
+  <h2 class="section-title">
+    <span class="accent" data-en="Payment" data-ar="طرق">Payment</span>
+    <span data-en=" Method" data-ar=" الدفع"> Method</span>
+  </h2>
+  <p class="section-sub" data-en="Secure card payment accepted worldwide" data-ar="الدفع بالبطاقة مقبول في جميع أنحاء العالم">Secure card payment accepted worldwide</p>
+
+  <div class="payment-single">
+    <div class="payment-card">
+      <div class="payment-icon">💳</div>
+      <div class="payment-title" data-en="Mastercard / Super Key" data-ar="ماستركارد / السوبر كي">Mastercard / Super Key</div>
+      <div class="payment-sub" data-en="Direct card transfer — use the details below" data-ar="تحويل مباشر بالبطاقة — استخدم التفاصيل أدناه">Direct card transfer — use the details below</div>
+      <div class="payment-address">
+        <span id="cardNum">Mastercard ending in 2492</span>
+        <button class="copy-btn" onclick="copyText('cardNum', this)" data-en="Copy" data-ar="نسخ">Copy</button>
+      </div>
+      <div class="payment-holder" data-en="Cardholder: IHSAN ALI ATIYYA" data-ar="حامل البطاقة: إحسان علي عطية">Cardholder: IHSAN ALI ATIYYA</div>
+      <div class="contact-note" data-en="Contact us by email to complete payment transfer" data-ar="تواصل معنا عبر البريد الإلكتروني لإتمام تحويل الدفع">
+        Contact us by email to complete payment transfer
+      </div>
+    </div>
+  </div>
+
+  <!-- Steps -->
+  <h3 style="margin-top:44px; margin-bottom:6px; color:var(--white); font-size:1.1rem;"
+      data-en="How to complete your purchase" data-ar="كيفية إتمام الشراء">How to complete your purchase</h3>
+  <p style="font-size:0.85rem; color:var(--text-dim); margin-bottom:20px;"
+     data-en="Follow these steps after choosing a product" data-ar="اتبع هذه الخطوات بعد اختيار المنتج">Follow these steps after choosing a product</p>
+
+  <div class="steps">
+    <div class="step">
+      <div class="step-num">1</div>
+      <div class="step-content">
+        <h4 data-en="Choose your product" data-ar="اختر منتجك">Choose your product</h4>
+        <p data-en="Click Buy Now on the product you want and note the exact price." data-ar="انقر على 'اشتر الآن' على المنتج الذي تريده ولاحظ السعر الدقيق.">Click Buy Now on the product you want and note the exact price.</p>
+      </div>
+    </div>
+    <div class="step">
+      <div class="step-num">2</div>
+      <div class="step-content">
+        <h4 data-en="Contact us to complete payment" data-ar="تواصل معنا لإتمام الدفع">Contact us to complete payment</h4>
+        <p data-en="Contact us by email to complete the payment transfer via Mastercard/Super Key." data-ar="تواصل معنا عبر البريد الإلكتروني لإتمام تحويل الدفع عبر ماستركارد/السوبر كي.">Contact us by email to complete the payment transfer via Mastercard/Super Key.</p>
+      </div>
+    </div>
+    <div class="step">
+      <div class="step-num">3</div>
+      <div class="step-content">
+        <h4 data-en="Email your proof of payment" data-ar="أرسل إثبات الدفع بالبريد الإلكتروني">Email your proof of payment</h4>
+        <p>
+          <span data-en="Send a screenshot or transaction reference to " data-ar="أرسل لقطة شاشة أو مرجع المعاملة إلى ">Send a screenshot or transaction reference to </span>
+          <a class="modal-email-link" href="mailto:ahssanali84.syber@gmail.com">ahssanali84.syber@gmail.com</a>
+          <span data-en=" — include the product name in the subject line." data-ar=" — أدرج اسم المنتج في سطر الموضوع."> — include the product name in the subject line.</span>
+        </p>
+      </div>
+    </div>
+    <div class="step">
+      <div class="step-num">4</div>
+      <div class="step-content">
+        <h4 data-en="Receive your license" data-ar="استلم ترخيصك">Receive your license</h4>
+        <p data-en="We verify payment and deliver your license key / download link within 24 hours." data-ar="نتحقق من الدفع ونسلم مفتاح الترخيص / رابط التنزيل خلال 24 ساعة.">We verify payment and deliver your license key / download link within 24 hours.</p>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- ── FOOTER ── -->
+<footer>
+  <div class="footer-logo">OPTI<span style="color:var(--white)">SEC</span></div>
+  <p data-en="© 2026 OPTISEC. Professional Cybersecurity Tools. All rights reserved."
+     data-ar="© 2026 أوبتيسيك. أدوات الأمن السيبراني الاحترافية. جميع الحقوق محفوظة.">
+    © 2026 OPTISEC. Professional Cybersecurity Tools. All rights reserved.
+  </p>
+</footer>
+
+<!-- ── MODAL ── -->
+<div class="modal-overlay" id="modal" onclick="closeModal(event)">
+  <div class="modal">
+    <button class="modal-close" onclick="closeModalDirect()">✕</button>
+    <h3 id="modalProduct">Product</h3>
+    <div class="modal-price" id="modalPrice">$199</div>
+
+    <p class="modal-note" data-en="Transfer the exact amount to this Mastercard:" data-ar="حوّل المبلغ الدقيق إلى بطاقة الماستركارد هذه:">
+      Transfer the exact amount to this Mastercard:
+    </p>
+    <div class="modal-address-box">Mastercard ending in 2492</div>
+    <div class="modal-holder" data-en="Cardholder: IHSAN ALI ATIYYA" data-ar="حامل البطاقة: إحسان علي عطية">Cardholder: IHSAN ALI ATIYYA</div>
+
+    <p class="modal-note">
+      <span data-en="After sending, email your transaction screenshot/reference to " data-ar="بعد الإرسال، أرسل لقطة شاشة المعاملة إلى ">After sending, email your transaction screenshot/reference to </span>
+      <a class="modal-email-link" href="mailto:ahssanali84.syber@gmail.com">ahssanali84.syber@gmail.com</a>
+    </p>
+
+    <div class="modal-contact-note" data-en="Contact us by email to complete payment transfer" data-ar="تواصل معنا عبر البريد الإلكتروني لإتمام تحويل الدفع">
+      Contact us by email to complete payment transfer
+    </div>
+
+    <p style="font-size:0.78rem; color:var(--text-dim); margin-top:14px;"
+       data-en="Include product name in email subject. License delivered within 24h."
+       data-ar="أدرج اسم المنتج في موضوع البريد الإلكتروني. يتم تسليم الترخيص خلال 24 ساعة.">
+      Include product name in email subject. License delivered within 24h.
+    </p>
+  </div>
+</div>
+
+<script>
+  /* ── i18n ── */
+  let currentLang = 'en';
+
+  function toggleLang() {
+    currentLang = currentLang === 'en' ? 'ar' : 'en';
+    const html = document.documentElement;
+    html.setAttribute('lang', currentLang);
+    html.setAttribute('dir', currentLang === 'ar' ? 'rtl' : 'ltr');
+    document.body.setAttribute('dir', currentLang === 'ar' ? 'rtl' : 'ltr');
+    document.getElementById('langBtn').textContent = currentLang === 'en' ? 'العربية' : 'English';
+    document.querySelectorAll('[data-en]').forEach(el => {
+      el.textContent = el.getAttribute('data-' + currentLang);
+    });
+  }
+
+  /* ── Copy button ── */
+  function copyText(id, btn) {
+    const text = document.getElementById(id).textContent;
+    navigator.clipboard.writeText(text).then(() => {
+      const label = currentLang === 'ar' ? 'تم!' : 'Copied!';
+      btn.textContent = label;
+      btn.classList.add('copied');
+      setTimeout(() => {
+        btn.textContent = currentLang === 'ar' ? 'نسخ' : 'Copy';
+        btn.classList.remove('copied');
+      }, 2000);
+    });
+  }
+
+  /* ── Modal ── */
+  const products = {
+    wifi: {
+      en: { name: 'OPTISEC WiFi Monitor', price: '$199' },
+      ar: { name: 'مراقب WiFi أوبتيسيك', price: '$199' }
+    },
+    soc: {
+      en: { name: 'OPTISEC SOC Platform', price: '$99' },
+      ar: { name: 'منصة SOC أوبتيسيك', price: '$99' }
+    }
+  };
+
+  function openModal(product) {
+    const data = products[product][currentLang];
+    document.getElementById('modalProduct').textContent = data.name;
+    document.getElementById('modalPrice').textContent = data.price;
+    document.getElementById('modal').classList.add('active');
+    document.body.style.overflow = 'hidden';
+  }
+
+  function closeModal(e) {
+    if (e.target === document.getElementById('modal')) closeModalDirect();
+  }
+
+  function closeModalDirect() {
+    document.getElementById('modal').classList.remove('active');
+    document.body.style.overflow = '';
+  }
+
+  /* ── Smooth scroll ── */
+  document.querySelectorAll('a[href^="#"]').forEach(a => {
+    a.addEventListener('click', e => {
+      const target = document.querySelector(a.getAttribute('href'));
+      if (target) { e.preventDefault(); target.scrollIntoView({ behavior: 'smooth' }); }
+    });
+  });
+</script>
+</body>
+</html>
