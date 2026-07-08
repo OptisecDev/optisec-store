@@ -1,0 +1,115 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Privacy Policy — OptiSec Mobile</title>
+<style>
+  :root{
+    --bg:#0B1220;
+    --bg2:#111C2E;
+    --panel:#152238;
+    --cyan:#00E6C3;
+    --cyan-dim:#00A8A0;
+    --amber:#FFB020;
+    --text:#EDEFF2;
+    --text-dim:#93A0B4;
+    --border:#22314A;
+  }
+  *{box-sizing:border-box;}
+  body{
+    margin:0;
+    font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,Helvetica,Arial,sans-serif;
+    background:linear-gradient(160deg,var(--bg),var(--bg2));
+    color:var(--text);
+    line-height:1.65;
+  }
+  .wrap{max-width:760px;margin:0 auto;padding:64px 24px 96px;}
+  header{display:flex;align-items:center;gap:16px;margin-bottom:8px;}
+  .logo{width:44px;height:44px;border-radius:12px;background:var(--panel);border:1.5px solid var(--cyan-dim);display:flex;align-items:center;justify-content:center;}
+  .logo svg{width:26px;height:26px;}
+  h1{font-size:1.6rem;margin:0;letter-spacing:-0.01em;}
+  .brand{color:var(--text-dim);font-size:0.85rem;margin-top:2px;}
+  .updated{color:var(--text-dim);font-size:0.85rem;margin:24px 0 40px;padding-bottom:24px;border-bottom:1px solid var(--border);}
+  h2{font-size:1.05rem;color:var(--cyan);margin:40px 0 12px;letter-spacing:0.02em;text-transform:uppercase;font-weight:600;}
+  p{color:#D6DCE6;margin:0 0 14px;}
+  table{width:100%;border-collapse:collapse;margin:16px 0 8px;}
+  th,td{text-align:left;padding:12px 14px;border-bottom:1px solid var(--border);font-size:0.92rem;}
+  th{color:var(--text-dim);font-weight:600;background:var(--panel);}
+  td{color:#D6DCE6;}
+  td:first-child{color:var(--cyan);white-space:nowrap;font-weight:500;}
+  ul{color:#D6DCE6;padding-left:20px;}
+  li{margin-bottom:6px;}
+  a{color:var(--amber);text-decoration:none;}
+  a:hover{text-decoration:underline;}
+  footer{margin-top:56px;padding-top:24px;border-top:1px solid var(--border);color:var(--text-dim);font-size:0.8rem;}
+</style>
+</head>
+<body>
+<div class="wrap">
+  <header>
+    <div class="logo">
+      <svg viewBox="0 0 512 512" xmlns="http://www.w3.org/2000/svg">
+        <path d="M256 88 L372 128 V244 C372 328 322 388 256 424 C190 388 140 328 140 244 V128 Z"
+              fill="#152238" stroke="#00E6C3" stroke-width="16"/>
+        <path d="M172 268 L214 268 L232 226 L256 312 L276 250 L292 268 L340 268"
+              fill="none" stroke="#00E6C3" stroke-width="14" stroke-linecap="round" stroke-linejoin="round"/>
+        <circle cx="340" cy="268" r="14" fill="#FFB020"/>
+      </svg>
+    </div>
+    <div>
+      <h1>Privacy Policy</h1>
+      <div class="brand">OptiSec Mobile · by OPTISEC</div>
+    </div>
+  </header>
+
+  <div class="updated">Last updated: <strong>[DATE]</strong></div>
+
+  <p>OptiSec Mobile ("the App") is developed by OPTISEC. This policy explains what data the App accesses, why, and what happens to it.</p>
+
+  <h2>Data We Do Not Collect</h2>
+  <ul>
+    <li>We do not collect, transmit, or store your Password Vault entries. All vault data is encrypted locally on your device (AES-256-GCM) and never leaves it.</li>
+    <li>We do not sell or share personal data with third parties.</li>
+    <li>We do not require an account to use core security features.</li>
+  </ul>
+
+  <h2>Permissions We Request and Why</h2>
+  <table>
+    <tr><th>Permission</th><th>Purpose</th></tr>
+    <tr><td>Location (Wi-Fi scan)</td><td>Required by Android to read nearby Wi-Fi network details (BSSID/SSID) for Evil Twin / rogue access point detection. Coordinates are not stored or transmitted.</td></tr>
+    <tr><td>Usage Access</td><td>Builds the Permission Usage Timeline locally, showing which apps access sensitive permissions and when. Stays on-device.</td></tr>
+    <tr><td>Biometric</td><td>Unlocks the Password Vault and App Lock via Android Keystore/BiometricPrompt. The App never receives or stores raw biometric data.</td></tr>
+    <tr><td>Network</td><td>Powers the Threat Intelligence Feed and any cloud feature you explicitly enable.</td></tr>
+    <tr><td>Storage</td><td>Stores encrypted vault data and app settings locally.</td></tr>
+  </table>
+
+  <h2>Data Stored Locally On Your Device</h2>
+  <ul>
+    <li>Encrypted password vault entries</li>
+    <li>Wi-Fi network trust-score history</li>
+    <li>App lock PIN (hashed, never stored in plaintext)</li>
+    <li>Permission usage history (for the timeline feature)</li>
+  </ul>
+  <p>This data is excluded from Android's automatic cloud backup to prevent it from being restored onto another device without your explicit action.</p>
+
+  <h2>Threat Intelligence Feed</h2>
+  <p>The App downloads publicly available threat intelligence data from our servers/GitHub feed. This is a one-way download — no personal or device-identifying data is sent beyond standard network request metadata.</p>
+
+  <h2>Optional Cloud Features</h2>
+  <p>If you opt in to threat-sharing or cloud sync, only the minimum data required (e.g. anonymized threat indicators) is transmitted. Disabled by default.</p>
+
+  <h2>Children's Privacy</h2>
+  <p>The App is not directed at children under 13 and we do not knowingly collect data from children.</p>
+
+  <h2>Changes to This Policy</h2>
+  <p>We may update this policy as features change. Material changes will be reflected in the "Last updated" date above.</p>
+
+  <h2>Contact</h2>
+  <p>For privacy questions, contact: <a href="mailto:[YOUR EMAIL]">[YOUR EMAIL]</a></p>
+
+  <footer>© <span id="year"></span> OPTISEC. All rights reserved.</footer>
+</div>
+<script>document.getElementById('year').textContent = new Date().getFullYear();</script>
+</body>
+</html>
