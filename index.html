@@ -117,6 +117,8 @@
       justify-content: center;
       text-align: center;
       padding: 60px 20px;
+      border-bottom: 1px solid var(--border);
+      margin-bottom: 80px;
     }
 
     .hero-badge {
@@ -180,25 +182,6 @@
       transform: translateY(-2px);
       box-shadow: 0 0 50px rgba(0,255,136,0.5);
     }
-
-    /* ── STATS BAR ── */
-    .stats {
-      position: relative;
-      z-index: 1;
-      display: flex;
-      justify-content: center;
-      gap: 60px;
-      flex-wrap: wrap;
-      padding: 30px 20px;
-      border-top: 1px solid var(--border);
-      border-bottom: 1px solid var(--border);
-      background: var(--bg2);
-      margin-bottom: 80px;
-    }
-
-    .stat { text-align: center; }
-    .stat-num { font-size: 1.8rem; font-weight: 700; color: var(--green); }
-    .stat-label { font-size: 0.78rem; color: var(--text-dim); letter-spacing: 1px; margin-top: 2px; }
 
     /* ── SECTION ── */
     section {
@@ -671,7 +654,6 @@
     /* ── RESPONSIVE ── */
     @media (max-width: 640px) {
       nav { padding: 0 20px; }
-      .stats { gap: 30px; }
       .payment-section { padding: 32px 20px; }
       .modal { padding: 30px 22px; }
     }
@@ -703,26 +685,6 @@
     Professional-grade security tools for network monitoring, threat detection, and SOC operations. Built for security professionals who demand reliability.
   </p>
   <a href="#products" class="hero-cta" data-en="View Products" data-ar="عرض المنتجات">View Products</a>
-</div>
-
-<!-- ── STATS ── -->
-<div class="stats">
-  <div class="stat">
-    <div class="stat-num">500+</div>
-    <div class="stat-label" data-en="ACTIVE CLIENTS" data-ar="العملاء النشطون">ACTIVE CLIENTS</div>
-  </div>
-  <div class="stat">
-    <div class="stat-num">99.9%</div>
-    <div class="stat-label" data-en="UPTIME RATE" data-ar="معدل التشغيل">UPTIME RATE</div>
-  </div>
-  <div class="stat">
-    <div class="stat-num">24/7</div>
-    <div class="stat-label" data-en="SUPPORT" data-ar="الدعم الفني">SUPPORT</div>
-  </div>
-  <div class="stat">
-    <div class="stat-num">256-bit</div>
-    <div class="stat-label" data-en="ENCRYPTION" data-ar="التشفير">ENCRYPTION</div>
-  </div>
 </div>
 
 <!-- ── PRODUCTS ── -->
@@ -788,12 +750,12 @@
       <ul class="features">
         <li data-en="IOC Correlation Engine (20+ threat clusters)" data-ar="محرك ارتباط IOC (أكثر من 20 مجموعة تهديدات)">IOC Correlation Engine (20+ threat clusters)</li>
         <li data-en="MITRE ATT&CK Navigator (14 tactics, 278 techniques)" data-ar="متصفح MITRE ATT&amp;CK (14 تكتيكاً، 278 تقنية)">MITRE ATT&amp;CK Navigator (14 tactics, 278 techniques)</li>
-        <li data-en="Dark Web Intelligence Monitoring" data-ar="مراقبة استخبارات الويب المظلم">Dark Web Intelligence Monitoring</li>
         <li data-en="Next-Gen Firewall with ML & DPI" data-ar="جدار الحماية من الجيل التالي مع ML وDPI">Next-Gen Firewall with ML &amp; DPI</li>
         <li data-en="AlienVault OTX Live Threat Feed" data-ar="موجز التهديدات المباشر AlienVault OTX">AlienVault OTX Live Threat Feed</li>
         <li data-en="Bug Bounty Auto-Submit (HackerOne/Bugcrowd)" data-ar="إرسال تلقائي لمكافآت الثغرات (HackerOne/Bugcrowd)">Bug Bounty Auto-Submit (HackerOne/Bugcrowd)</li>
+        <li data-en="One-time license key — no subscription" data-ar="مفتاح ترخيص لمرة واحدة — بدون اشتراك">One-time license key — no subscription</li>
       </ul>
-      <div class="product-price">$199 <span data-en="/ year" data-ar="/ سنة">/ year</span></div>
+      <div class="product-price">$399 <span data-en="/ one-time" data-ar="/ دفعة واحدة">/ one-time</span></div>
       <button class="btn-buy" onclick="openModal('recon')" data-en="Buy Now" data-ar="اشتر الآن">Buy Now</button>
       <a href="https://github.com/OptisecDev/optisec-recon-pro" target="_blank" rel="noopener noreferrer" class="btn-github">
         <svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor" style="flex-shrink:0"><path d="M12 0C5.37 0 0 5.37 0 12c0 5.31 3.435 9.795 8.205 11.385.6.105.825-.255.825-.57 0-.285-.015-1.23-.015-2.235-3.015.555-3.795-.735-4.035-1.41-.135-.345-.72-1.41-1.23-1.695-.42-.225-1.02-.78-.015-.795.945-.015 1.62.87 1.845 1.23 1.08 1.815 2.805 1.305 3.495.99.105-.78.42-1.305.765-1.605-2.67-.3-5.46-1.335-5.46-5.925 0-1.305.465-2.385 1.23-3.225-.12-.3-.54-1.53.12-3.18 0 0 1.005-.315 3.3 1.23.96-.27 1.98-.405 3-.405s2.04.135 3 .405c2.295-1.56 3.3-1.23 3.3-1.23.66 1.65.24 2.88.12 3.18.765.84 1.23 1.905 1.23 3.225 0 4.605-2.805 5.625-5.475 5.925.435.375.81 1.095.81 2.22 0 1.605-.015 2.895-.015 3.3 0 .315.225.69.825.57A12.02 12.02 0 0 0 24 12c0-6.63-5.37-12-12-12z"/></svg>
@@ -1047,8 +1009,8 @@
       ar: { name: 'منصة SOC أوبتيسيك', price: '$99' }
     },
     recon: {
-      en: { name: 'OPTISEC Recon Pro', price: '$199' },
-      ar: { name: 'ريكون برو أوبتيسيك', price: '$199' }
+      en: { name: 'OPTISEC Recon Pro', price: '$399' },
+      ar: { name: 'ريكون برو أوبتيسيك', price: '$399' }
     },
     pentest: {
       en: { name: 'OPTISEC Pen Test Suite', price: '$149' },
