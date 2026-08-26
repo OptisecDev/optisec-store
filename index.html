@@ -759,6 +759,31 @@
       </a>
     </div>
 
+    <!-- Product 5 -->
+    <div class="product-card" id="mobile-pro-card">
+      <span class="product-badge" data-en="NEW" data-ar="جديد">NEW</span>
+      <div class="product-icon">📱</div>
+      <div class="product-name" data-en="OptiSec Mobile Pro" data-ar="أوبتيسيك موبايل برو">OptiSec Mobile Pro</div>
+      <p class="product-desc" data-en="Unlock the full power of OptiSec Mobile. One-time purchase, lifetime access — no subscriptions."
+         data-ar="أطلق العنان لكامل قوة أوبتيسيك موبايل. شراء لمرة واحدة، وصول مدى الحياة — بدون اشتراكات.">
+        Unlock the full power of OptiSec Mobile. One-time purchase, lifetime access — no subscriptions.
+      </p>
+      <ul class="features">
+        <li data-en="Unlimited Wi-Fi scans (no daily limit)" data-ar="فحوصات WiFi غير محدودة (بدون حد يومي)">Unlimited Wi-Fi scans (no daily limit)</li>
+        <li data-en="Unlimited apps in App Lock" data-ar="تطبيقات غير محدودة في قفل التطبيقات">Unlimited apps in App Lock</li>
+        <li data-en="Unlimited Password Vault entries" data-ar="إدخالات غير محدودة في خزنة كلمات المرور">Unlimited Password Vault entries</li>
+        <li data-en="Full Privacy Guard permission-usage timeline" data-ar="سجل زمني كامل لاستخدام الأذونات في حارس الخصوصية">Full Privacy Guard permission-usage timeline</li>
+        <li data-en="Lifetime license · one device" data-ar="ترخيص مدى الحياة · جهاز واحد">Lifetime license · one device</li>
+      </ul>
+      <div class="product-price">$14.99 <span data-en="/ one-time" data-ar="/ دفعة واحدة">/ one-time</span></div>
+      <button class="btn-buy" onclick="openModal('mobilepro')" data-en="Buy Now" data-ar="اشتر الآن">Buy Now</button>
+      <p style="font-size:0.75rem;color:var(--text-dim);margin-top:10px;text-align:center;line-height:1.5;"
+         data-en="License key activates inside the app via the &quot;Enter License Key&quot; screen. Activation instructions are included with your key."
+         data-ar="يتم تفعيل مفتاح الترخيص داخل التطبيق من خلال شاشة &quot;إدخال مفتاح الترخيص&quot;. تعليمات التفعيل مرفقة مع مفتاحك.">
+        License key activates inside the app via the "Enter License Key" screen. Activation instructions are included with your key.
+      </p>
+    </div>
+
   </div>
 </section>
 
@@ -885,6 +910,9 @@
        data-en="v1.0.0 · Android 7.0+ · Free" data-ar="الإصدار 1.0.0 · أندرويد 7.0 وما فوق · مجاني">
       v1.0.0 · Android 7.0+ · Free
     </p>
+    <p style="text-align:center;font-size:0.85rem;margin-top:16px;">
+      <a href="#mobile-pro-card" class="modal-email-link" data-en="Want more? See OptiSec Mobile Pro above." data-ar="تريد المزيد؟ اطلع على أوبتيسيك موبايل برو أعلاه.">Want more? See OptiSec Mobile Pro above.</a>
+    </p>
   </div>
 </div>
 
@@ -987,6 +1015,10 @@
       en: { name: 'OPTISEC Recon Pro', price: '$399' },
       ar: { name: 'ريكون برو أوبتيسيك', price: '$399' }
     },
+    mobilepro: {
+      en: { name: 'OptiSec Mobile Pro', price: '$14.99' },
+      ar: { name: 'أوبتيسيك موبايل برو', price: '$14.99' }
+    }
   };
 
   function openModal(product) {
