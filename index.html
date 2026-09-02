@@ -808,16 +808,11 @@
     </div>
 
     <div class="payment-card">
-      <div class="payment-icon">💳</div>
-      <div class="payment-title" data-en="Mastercard / Super Key" data-ar="ماستركارد / السوبر كي">Mastercard / Super Key</div>
-      <div class="payment-sub" data-en="Direct card transfer — use the details below" data-ar="تحويل مباشر بالبطاقة — استخدم التفاصيل أدناه">Direct card transfer — use the details below</div>
-      <div class="payment-address">
-        <span id="cardNum">Mastercard ending in 2492</span>
-        <button class="copy-btn" onclick="copyText('cardNum', this)" data-en="Copy" data-ar="نسخ">Copy</button>
-      </div>
-      <div class="payment-holder" data-en="Cardholder: IHSAN ALI ATIYYA" data-ar="حامل البطاقة: إحسان علي عطية">Cardholder: IHSAN ALI ATIYYA</div>
-      <div class="contact-note" data-en="Contact us by email to complete payment transfer" data-ar="تواصل معنا عبر البريد الإلكتروني لإتمام تحويل الدفع">
-        Contact us by email to complete payment transfer
+      <div class="payment-icon">✉️</div>
+      <div class="payment-title" data-en="Alternative Payment" data-ar="طريقة دفع بديلة">Alternative Payment</div>
+      <div class="payment-sub" data-en="Prefer a different method? Contact us by email for details." data-ar="تفضل طريقة أخرى؟ تواصل معنا عبر البريد الإلكتروني للتفاصيل.">Prefer a different method? Contact us by email for details.</div>
+      <div class="contact-note">
+        <a class="modal-email-link" href="mailto:ahssanali84.syber@gmail.com">ahssanali84.syber@gmail.com</a>
       </div>
     </div>
 
@@ -841,7 +836,7 @@
       <div class="step-num">2</div>
       <div class="step-content">
         <h4 data-en="Contact us to complete payment" data-ar="تواصل معنا لإتمام الدفع">Contact us to complete payment</h4>
-        <p data-en="Contact us by email to complete the payment transfer via Mastercard/Super Key." data-ar="تواصل معنا عبر البريد الإلكتروني لإتمام تحويل الدفع عبر ماستركارد/السوبر كي.">Contact us by email to complete the payment transfer via Mastercard/Super Key.</p>
+        <p data-en="Send USDT TRC20, or contact us by email for alternative payment methods." data-ar="أرسل USDT TRC20، أو تواصل معنا عبر البريد الإلكتروني لطرق دفع بديلة.">Send USDT TRC20, or contact us by email for alternative payment methods.</p>
       </div>
     </div>
     <div class="step">
@@ -934,7 +929,7 @@
 
     <div class="modal-tabs">
       <button class="modal-tab active" onclick="switchTab('usdt', this)">USDT TRC20</button>
-      <button class="modal-tab" onclick="switchTab('card', this)" data-en="Mastercard" data-ar="ماستركارد">Mastercard</button>
+      <button class="modal-tab" onclick="switchTab('other', this)" data-en="Other" data-ar="أخرى">Other</button>
     </div>
 
     <div class="modal-payment-content active" id="tab-usdt">
@@ -948,19 +943,13 @@
       </p>
     </div>
 
-    <div class="modal-payment-content" id="tab-card">
-      <p class="modal-note" data-en="Transfer the exact amount to this Mastercard:" data-ar="حوّل المبلغ الدقيق إلى بطاقة الماستركارد هذه:">
-        Transfer the exact amount to this Mastercard:
+    <div class="modal-payment-content" id="tab-other">
+      <p class="modal-note" data-en="Prefer a different payment method? Contact us by email for details:" data-ar="تفضل طريقة دفع أخرى؟ تواصل معنا عبر البريد الإلكتروني للتفاصيل:">
+        Prefer a different payment method? Contact us by email for details:
       </p>
-      <div class="modal-address-box">Mastercard ending in 2492</div>
-      <div class="modal-holder" data-en="Cardholder: IHSAN ALI ATIYYA" data-ar="حامل البطاقة: إحسان علي عطية">Cardholder: IHSAN ALI ATIYYA</div>
       <p class="modal-note">
-        <span data-en="After sending, email your transaction screenshot/reference to " data-ar="بعد الإرسال، أرسل لقطة شاشة المعاملة إلى ">After sending, email your transaction screenshot/reference to </span>
         <a class="modal-email-link" href="mailto:ahssanali84.syber@gmail.com">ahssanali84.syber@gmail.com</a>
       </p>
-      <div class="modal-contact-note" data-en="Contact us by email to complete payment transfer" data-ar="تواصل معنا عبر البريد الإلكتروني لإتمام تحويل الدفع">
-        Contact us by email to complete payment transfer
-      </div>
     </div>
 
     <p style="font-size:0.78rem; color:var(--text-dim); margin-top:14px;"
